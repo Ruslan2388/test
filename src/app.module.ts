@@ -18,8 +18,9 @@ import { User, UserSchema } from './admin/users/dto/user.schema';
 import { MongooseModule } from '@nestjs/mongoose';
 import { CqrsModule } from '@nestjs/cqrs';
 import { ConfigModule } from '@nestjs/config';
-import { ChatGateway } from './chat/chat.gateway';
+
 import { UserController } from './admin/user.controller';
+import { AppGateway } from '../socket-client/app.gateway';
 
 const controller = [AppController, AuthController, UserController];
 const service = [AppService, AuthService, JwtAdapter, JwtService];
@@ -44,6 +45,6 @@ const strategy = [LocalStrategy];
     ],
 
     controllers: [...controller],
-    providers: [...repository, ...service, ...validators, ...useCases, ...strategy, ChatGateway],
+    providers: [...repository, ...service, ...validators, ...useCases, ...strategy, AppGateway],
 })
 export class AppModule {}
